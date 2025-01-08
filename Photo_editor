@@ -1,0 +1,123 @@
+from PIL import Image,ImageFilter as iff,ImageEnhance as ie
+print("1. Create a new image")
+print("2. Modify an existing image")
+gok=int(input("Enter your choice (1-2): "))
+if gok==1:
+      wid=int(input("Enter width: "))
+      hei=int(input("Enter height: "))
+      col=input("Enter colour: ")
+      colr=col.title()
+      if colr=="Red":
+            cpi=(255,0,0)
+      elif colr=="Green":
+            cpi=(0,255,0)
+      elif colr=="Blue":
+            cpi=(0,0,255)
+      elif colr=="White":
+            cpi=(255,255,255)
+      elif colr=="Black":
+            cpi=(0,0,0)
+      elif colr=="Yellow":
+            cpi=(255,255,0)
+      elif colr=="Magneta":
+            cpi=(255,0,255)
+      elif colr=="Cyan":
+            cpi=(0,255,255)
+      imge=Image.new("RGB",(wid,hei),cpi)
+      sve=input("Enter name of image: ")
+      tpy=input("Enter format of image: ")
+      sve=sve+"."+tpy
+      imge.save(sve)
+elif gok==2:
+      x=input("Enter file path: ")
+      x="/storage/emulated/0/"+x
+      img=Image.open(x)
+      print("Details of the image are: ")
+      print("Format: ",img.format)
+      print("Width: ",img.size[0])
+      print("Height: ",img.size[1])
+      chal=input("Press ENTER to continue")
+      qwe=0
+      while qwe==0:
+            print("1. Crop")
+            print("2. Resize")
+            print("3. Rotate")
+            print("4. Brightness")
+            print("5. Contrast")
+            print("6. Sharpness")
+            print("7. Highlight edge")
+            print("8. Adding 3D effect")
+            print("9. Detect edges")
+            print("10. Save")
+            kop=int(input("Enter your choice (1-10): "))
+            if kop==1:
+                  print("Enter values of part for cropping: ")
+                  r=int(input("Enter for right part: "))
+                  l=int(input("Enter for left part: "))
+                  t=int(input("Enter for top part: "))
+                  b=int(input("Enter for down part: "))
+                  imge=img.crop((l,t,r,b))
+            elif kop==2:
+                  w=int(input("Enter new width: "))
+                  h=int(input("Enter new height: "))
+                  imge=img.resize((w,h))
+            elif kop==3:
+                  print("1. Clockwise")
+                  print("2. Anticlockwise")
+                  bos=int(input("Enter your choice (1-2): "))
+                  mo=float(input("Enter angle (in degree): "))
+                  if bos==1:
+                        an=mo
+                  elif bos==2:
+                        an=mo*(-1)
+                  else:
+                        print("Invalid choice!!!")
+                  imge=img.rotate(an)
+            elif kop==4:
+                  enh=ie.Brightness(img)
+                  print("1. Increase")
+                  print("2. Decrease")
+                  fuk=int(input("Enter your choice (1-2): "))
+                  if fuk==1:
+                        hy=float(input("Enter percentage by which to brighten the image: "))
+                        enh.enhance(1+(hy/100))
+                  elif fuk==2:
+                        hy=float(input("Enter percentage by which to darken the image: "))
+                        enh.enhance(1-(hy/100))
+                  else:
+                       print("Invalid Choice!!!")
+            elif kop==5:
+                  enh=ie.Contrast(img)
+                  print("1. Increase")
+                  print("2. Decrease")
+                  fuk=int(input("Enter your choice (1-2): "))
+                  if fuk==1:
+                        hy=float(input("Enter percentage by which to increase the contract: "))
+                        enh.enhance(1+(hy/100))
+                  elif fuk==2:
+                        hy=float(input("Enter percentage by which to decrease the contrast: "))
+                        enh.enhance(1-(hy/100))
+            elif kop==6:
+                  enh=ie.Sharpness(img)
+                  print("1. Increase")
+                  print("2. Decrease")
+                  fuk=int(input("Enter your choice (1-2): "))
+                  if fuk==1:
+                        hy=float(input("Enter percentage by which to increase sharpness: "))
+                        enh.enhance(1+(hy/100))
+                  elif fuk==2:
+                        hy=float(input("Enter percentage by which to decrease the sharpness: "))
+                        enh.enhance(1-(hy/100))
+            elif kop==7:
+                       imge=img.filter(iff.CONTOUR)
+            elif kop==8:
+                       imge=img.filter(iff.EMBOSS)
+            elif kop==9:
+                       imge=img.filter(iff.FIND_EDGES)
+            elif kop==10:
+                       sve=input("Enter name of image: ")
+                       tpy=input("Enter format of image: ")
+                       sve=sve+"."+tpy
+                       imge.save(sve)
+                       break
+                   
